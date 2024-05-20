@@ -1,7 +1,19 @@
+use anyhow::Result;
+
 /// Performs a XOR operation between two encrypted cyphers with the same key. If one of the keys is longer than the other, it gets truncated.
 /// The result is the msg_1[0..n] XOR msg_2[0..n] where n is the smaller length between the two.
-fn combine_ciphers_remove_encryption_key(c1: &str, c2: &str) {
-    todo!()
+fn combine_ciphers_remove_encryption_key(c1: &str, c2: &str) -> Result<Vec<u8>> {
+    let c1_bytes: Vec<u8> = hex::decode(c1)?;
+    let c2_bytes: Vec<u8> = hex::decode(c2)?;
+    let common_key_length_used = c1_bytes.len().min(c2_bytes.len());
+
+    let mut result = Vec::with_capacity(common_key_length_used);
+
+    for i in 0..common_key_length_used {
+        result.push(c1_bytes[i] ^ c2_bytes[i]);
+    }
+
+    Ok(result)
 }
 
 /// Identify potential whitespaces in a combined cipher
@@ -40,4 +52,12 @@ fn main() {
     // from the whitespace locations, determine the key values
     // Start building a composite key, from the discovered key characters.
     // Next steps: Dictionary attack?
+}
+
+#[test]
+fn test_combination() {
+    let c1 = hex::encode(vec![1,1,1,1,1]);
+    let c2 = hex::encode(vec![2,2,2,2,2]);
+
+    assert_eq!(vec![3,3,3,3,3], combine_ciphers_remove_encryption_key(&c1,&c2).unwrap());
 }
