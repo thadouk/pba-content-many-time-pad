@@ -1,3 +1,20 @@
+/// Performs a XOR operation between two encrypted cyphers with the same key. If one of the keys is longer than the other, it gets truncated.
+/// The result is the msg_1[0..n] XOR msg_2[0..n] where n is the smaller length between the two.
+fn combine_ciphers_remove_encryption_key(c1: &str, c2: &str) {
+    todo!()
+}
+
+/// Identify potential whitespaces in a combined cipher
+/// TODO: update signature
+fn identify_potential_whitespaces_indexes() -> Vec<u16> {
+    todo!()
+}
+
+// TODO: update signature
+fn determine_whitespaces_location() -> Vec<u16> {
+    todo!()
+}
+
 fn main() {
     let ciphers = [
         "160111433b00035f536110435a380402561240555c526e1c0e431300091e4f04451d1d490d1c49010d000a0a4510111100000d434202081f0755034f13031600030d0204040e",
@@ -14,8 +31,13 @@ fn main() {
         "011b0d131b060d4f5233451e161b001f59411c090a0548104f431f0b48115505111d17000e02000a1e430d0d0b04115e4f190017480c14074855040a071f4448001a050110001b014c1a07024e5014094d0a1c541052110e54074541100601014e101a5c",
 
         "0c06004316061b48002a4509065e45221654501c0a075f540c42190b165c",
-        
-        // The message is the encrypted key. This can give us the length of the key
+        // This message has only characters from the encrypted key.
         "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-        ];
+    ];
+    // Algorithm:
+    // Combine each cipher with the others and identify whitespace values
+    // verify the whitespace locations among the different ciphers for each message
+    // from the whitespace locations, determine the key values
+    // Start building a composite key, from the discovered key characters.
+    // Next steps: Dictionary attack?
 }
